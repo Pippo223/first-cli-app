@@ -1,9 +1,20 @@
 <template>
     <section>
-        <header><h2>My Friends</h2></header>
+        <header><h1>My Friends</h1></header>
         <ul>
-          <li class="list"><friend-contact></friend-contact></li>  
-          <li class="list"><friend-contact></friend-contact></li>  
+          <li class="list"><friend-contact 
+            name="Philip Asare" 
+            phone-number="233 2477 1024"
+            email-address="phil@eg.com"
+            is-favorite="1"
+          
+          ></friend-contact></li>  
+          <li class="list"><friend-contact
+            name="Lessie Lugg" 
+            phone-number="235 7048 9801"
+            email-address="less@eg.com"
+
+          ></friend-contact></li>  
         </ul>
 
     </section>
