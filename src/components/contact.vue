@@ -1,9 +1,10 @@
 <template>
     <li>
-        <h2>{{ name }} {{ friendIsFavorite ? '(Fav)' : '' }}</h2>
+        <h2>{{ name }} {{ isFavorite ? '(Fav)' : '' }}</h2>
         <hr>
          <button @click="toggleDetails">{{ detailsAreVisible  ? 'Hide Details' : 'Show Details' }}</button>
         <button @click="toggleFavorite">Toggle Favorite</button>
+        <button @click="$emit('delete', id)">Delete Friend</button>
         <ul v-if="detailsAreVisible">
             <li class="pe1"><strong>Phone: </strong>{{ phoneNumber }}</li>
             <li class="pe1"><strong>Email: </strong>{{ emailAddress }}</li>
@@ -14,8 +15,13 @@
 
 <script>
     export default {
+            emits: ['toggle-favorite', 'delete'],
         // props: ['name', 'phoneNumber', 'emailAddress','isFavorite'],
-        props: {
+            props: {
+            id: {
+                type: String,
+                required: true
+            },
             name: {
                 type: String,
                 required: true
@@ -38,13 +44,7 @@
         data() {
            return{
            detailsAreVisible: false,
-            friend: {
-                id: 'manuel',
-                        name: 'Manuel Lorenz',
-                        phone: '0123 45678 90',
-                        email: 'manuel@localhost.com'
-            },
-            friendIsFavorite: this.isFavorite 
+            //friendIsFavorite: this.isFavorite 
         };
         },
 
@@ -54,8 +54,12 @@
             },
 
             toggleFavorite() {
-                this.friendIsFavorite === !this.friendIsFavorite;
-            }
+                this.$emit('toggle-favorite', this.id);
+            },
+
+            // deleteFriend() {
+            //     this.$emit('delete-friend')
+            // }
         }
 
     }
@@ -68,7 +72,8 @@
     color: white;
     padding:5px;
     margin-bottom: 15px;
-    width: 100px;
+    width: 120px;
+    margin-left: 10px; 
 }
 
 .pe1 {
