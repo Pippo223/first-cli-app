@@ -2,13 +2,17 @@
     <section>
         <header><h1>My Friends</h1></header>
         <ul>
-          <li class="list"><friend-contact 
-            name="Philip Asare" 
-            phone-number="233 2477 1024"
-            email-address="phil@eg.com"
-            is-favorite="1"
+          <li class="list">
+              <friend-contact
+              v-for="friend in friends"
+              :key="friend.id" 
+              :name="friend.name" 
+              :phone-number="friend.phone"
+            :email-address="friend.email"
+            :is-favorite="true"
           
           ></friend-contact></li>  
+ 
           <li class="list"><friend-contact
             name="Lessie Lugg" 
             phone-number="235 7048 9801"
