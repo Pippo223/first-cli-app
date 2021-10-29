@@ -1,14 +1,9 @@
 <template>
     <section>
         <header><h1>My Friends</h1></header>
-    </section>
 
-<section>
+
     <new-friend class="list" @add-contact="addContact"></new-friend>
-</section>
-
-
-<section>
         <ul>
           <li class="list" v-for="friend in friends" :key="friend.id" >
               <friend-contact
@@ -64,17 +59,17 @@
                identifiedFriend.isFavorite = !identifiedFriend.isFavorite; 
             },
 
-            addContact(name, phone, email) {
+            addContact(name, phone, email, isFav) {
                 const newFriend = {
                     id: Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 5),
                     // id: new Date().toISOString()
                     name: name,
                     phone: phone,
                     email: email,
-                    isFavorite: false
+                    isFavorite: isFav
                 };
                 //if(newFriend.name && newFriend.phone && newFriend.email) {
-                    this.friends.push(newFriend);
+                    this.friends.unshift(newFriend);
                // }
                // else {alert('One ore more fields are empty!')}
            },

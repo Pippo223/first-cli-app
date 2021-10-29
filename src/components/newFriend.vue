@@ -17,7 +17,7 @@
             <br>
 
             <label for="favorite">Favorite: </label>
-            <input type="checkbox" name="favorite">
+            <input type="checkbox" name="favorite" v-model="isFav">
     <br><br>
             <button>
                 Add Contact
@@ -41,7 +41,7 @@ export default {
             enteredName: '',
             enteredPhone: '',
             enteredEmail: '',
-            isFav: ''
+            isFav: false
         };
     },
 
@@ -50,7 +50,8 @@ export default {
             this.$emit('add-contact', 
                 this.enteredName,
                 this.enteredPhone,
-                this.enteredEmail
+                this.enteredEmail,
+                this.isFav
             )
         }
     }

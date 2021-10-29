@@ -76,6 +76,11 @@
     margin-left: 10px; 
 }
 
+button:hover{
+    cursor: pointer;
+    background-color: rgb(251, 65, 127);
+}
+
 .pe1 {
     width: 80%;
     margin: auto;
