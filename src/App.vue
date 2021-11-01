@@ -1,5 +1,19 @@
 <template>
     <section>
+
+        <base-dialogue v-if="deleteClicked" title="Confirm Delete" 
+        @no="noDelete">
+            <template #default>
+               <p> Are you sure you want to delete this contact?</p>
+            </template>
+
+            <template #actions>
+                <button id="yes" @click="deleteContact">Yes</button>
+                <button id="no" @click="noDelete">No</button>
+            </template>
+
+        </base-dialogue>
+
         <header><h1>My Friends</h1></header>
 
 
@@ -13,24 +27,19 @@
             :email-address="friend.email"
             :is-favorite="friend.isFavorite"
             @toggle-favorite="toggleStatus"
-            @delete="deleteContact"
+            @delete="confirmDelete"
           
           ></friend-contact>
           </li>  
- 
-          <!-- <li class="list"><friend-contact
-            name="Lessie Lugg" 
-            phone-number="235 7048 9801"
-            email-address="less@eg.com"
-
-          ></friend-contact></li>   -->
         </ul>
 
     </section>
 </template>
 
 <script>
+import BaseDialogue from './components/BaseDialogue.vue';
     export default {
+  components: { BaseDialogue },
         data() {
             return {
                 friends: [
@@ -49,7 +58,16 @@
                         isFavorite: false
                     }
 
-                ]
+                ],
+
+                deleteClicked: false,
+                idxTracker: 0
+            }
+        },
+
+        provide() {
+    return {
+                confirmDelete: this.confirmDelete
             }
         },
 
@@ -68,14 +86,29 @@
                     email: email,
                     isFavorite: isFav
                 };
-                //if(newFriend.name && newFriend.phone && newFriend.email) {
+                if(newFriend.name && newFriend.phone && newFriend.email) {
                     this.friends.unshift(newFriend);
-               // }
-               // else {alert('One ore more fields are empty!')}
+                }
+                else {alert('One ore more fields are empty!')}
            },
 
-           deleteContact(id) {
-               this.friends = this.friends.filter(friend => friend.id !== id);
+           confirmDelete(id) {
+               this.deleteClicked = true;
+               this.idxTracker = this.friends.findIndex((fr) => fr.id === id);
+               console.log(this.idxTracker)
+           },
+
+           deleteContact() {
+              //const fid = this.friends.findIndex(fr => fr.id === id);
+              
+              this.friends.splice(this.idxTracker, 1)
+              
+              //this.friends = this.friends.filter(friend => friend.id !== id);
+              //console.log(this.friends.length);
+           },
+
+           noDelete() {
+               this.deleteClicked = false;
            }
         }
     };
@@ -105,6 +138,18 @@
     border-radius: 10px;
     box-shadow: 1px 0 5px 1px #ccc;
     margin-bottom: 20px;
+}
+
+p{
+    text-align: center;
+}
+
+#yes{
+    background-color: yellowgreen;
+}
+
+#yes:hover{
+    background-color: green;
 }
 
 </style>

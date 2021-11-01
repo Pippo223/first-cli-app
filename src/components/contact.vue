@@ -4,7 +4,7 @@
         <hr>
          <button @click="toggleDetails">{{ detailsAreVisible  ? 'Hide Details' : 'Show Details' }}</button>
         <button @click="toggleFavorite">Toggle Favorite</button>
-        <button @click="$emit('delete', id)">Delete Friend</button>
+        <button @click="confirmDelete(idx)">Delete Friend</button>
         <ul v-if="detailsAreVisible">
             <li class="pe1"><strong>Phone: </strong>{{ phoneNumber }}</li>
             <li class="pe1"><strong>Email: </strong>{{ emailAddress }}</li>
@@ -16,8 +16,13 @@
 <script>
     export default {
             emits: ['toggle-favorite', 'delete'],
-        // props: ['name', 'phoneNumber', 'emailAddress','isFavorite'],
+         //props: ['id'],
             props: {
+            idx: {
+                type: Number,
+                required: true
+            },
+
             id: {
                 type: String,
                 required: true
@@ -39,7 +44,9 @@
                 required: false,
                 default: false
             }
-        },
+        }, 
+
+        inject: ['confirmDelete'],
 
         data() {
            return{

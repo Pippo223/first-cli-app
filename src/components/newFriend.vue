@@ -9,7 +9,7 @@
             <br>
 
             <label for="phone">Phone: </label>
-            <input type="tel" name="phone" v-model="enteredPhone">
+            <input type="text" name="phone" v-model="enteredPhone">
             <br>
 
             <label for="email">Email: </label>
@@ -52,7 +52,7 @@ export default {
                 this.enteredPhone,
                 this.enteredEmail,
                 this.isFav
-            )
+            );
         }
     }
 
